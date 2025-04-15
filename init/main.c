@@ -1,128 +1,155 @@
 /**
- * Bunix Kernel Main Entry Point
+ * Bunix Kernel - Main Entry Point
  * 
- * This file contains the kernel initialization and main loop.
+ * Responsible for system initialization and core component coordination.
+ * 
+ * © 2024 Bunix OS Developers. All Rights Reserved.
  */
 
-#include "../include/video/vga.h"
 #include "../include/boot/multiboot.h"
-#include "../include/shell/shell.h"
-#include "../include/keyboard/kb.h"
-#include "../include/kernel/rtc/rtc.h"
-#include "../include/mm/vmm.h"
 #include "../include/kernel/panic/panic.h"
 #include "../include/kernel/panic/boot.h"
+#include "../include/kernel/rtc/rtc.h"
+#include "../include/keyboard/kb.h"
+#include "../include/mm/vmm.h"
+#include "../include/shell/shell.h"
 #include "../include/version/version.h"
+#include "../include/video/vga.h"
 
-/* Multiboot header must be in the first 8KB of the kernel */
+/*─────────────────────────────────────────────────────────────────────────────*
+ * MULTIBOOT HEADER (Must reside in first 8KB of kernel image)                *
+ *─────────────────────────────────────────────────────────────────────────────*/
 __attribute__((section(".multiboot"), aligned(4)))
 static const struct multiboot_header multiboot_header = {
-    .magic   = MULTIBOOT_HEADER_MAGIC,
-    .flags   = MULTIBOOT_HEADER_FLAGS,
-    .checksum = -(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS)
+    .magic     = MULTIBOOT_HEADER_MAGIC,
+    .flags     = MULTIBOOT_HEADER_FLAGS,
+    .checksum  = -(MULTIBOOT_HEADER_MAGIC + MULTIBOOT_HEADER_FLAGS)
 };
 
-/* External declarations */
-extern uint32_t multiboot_info_ptr;
-extern uint32_t __bitmap_start;
+/*─────────────────────────────────────────────────────────────────────────────*
+ * EXTERN DECLARATIONS                                                         *
+ *─────────────────────────────────────────────────────────────────────────────*/
+extern uint32_t multiboot_info_ptr;  /* Multiboot info structure pointer      */
+extern uint32_t __bitmap_start;      /* Virtual memory bitmap start address   */
+
+/*─────────────────────────────────────────────────────────────────────────────*
+ * SYSTEM CONTROL FUNCTIONS                                                    *
+ *─────────────────────────────────────────────────────────────────────────────*/
 
 /**
- * kernel_halt - Halts the system indefinitely
+ * kernel_halt - Gracefully halt system execution
  * 
- * Disables interrupts and enters an infinite halt loop.
+ * Disables interrupts and enters an indefinite wait state. This function
+ * does not return.
  */
 static void kernel_halt(void) 
 {
-    __asm__ volatile ("cli");
+    __asm__ volatile ("cli");      /* Disable interrupts */
     for (;;) {
-        __asm__ volatile ("hlt");
+        __asm__ volatile ("hlt");  /* Wait for next interrupt */
     }
 }
 
 /**
- * delay - Simple busy-wait delay
- * @milliseconds: Time to delay in milliseconds
+ * crude_delay - Simple blocking delay implementation
+ * @milliseconds: Approximate delay duration in milliseconds
  * 
- * Note: This is a very crude delay mechanism and should be
- * replaced with proper timer-based delays when available.
+ * Note: Temporary implementation until proper timer subsystem is available
  */
-static void delay(uint32_t milliseconds) 
+static void crude_delay(uint32_t milliseconds) 
 {
-    for (uint32_t i = 0; i < milliseconds * 1000; i++) {
+    /* Approximately 1 nop per microsecond (adjusted for current clock speed) */
+    for (uint32_t i = 0; i < milliseconds * 1000; ++i) {
         __asm__ volatile ("nop");
     }
 }
 
+/*─────────────────────────────────────────────────────────────────────────────*
+ * USER INTERFACE COMPONENTS                                                   *
+ *─────────────────────────────────────────────────────────────────────────────*/
+
 /**
- * display_banner - Shows the system welcome banner
+ * display_system_banner - Present formatted system information
  * 
- * Displays version information, copyright notice, and
- * basic help instructions in a clean, formatted layout.
+ * Shows version information, build details, and copyright notice in a
+ * consistent, professional layout.
  */
-static void display_banner(void) 
+static void display_system_banner(void) 
 {
     struct rtc_date current_date;
     rtc_read_full(&current_date);
     
-    /* Your ASCII art in a simple box */
     vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+
+    /* System Identity Art */
     vga_puts(
         "\n"
-        "+-------------------------------------+\n"
+        "+------------------------------------+\n"
         "| ______             _               |\n"
         "| | ___ \\           (_)              |\n"
         "| | |_/ /_   _ _ __  ___  __         |\n"
         "| | ___ \\ | | | '_ \\| \\ \\/ /         |\n"
         "| | |_/ / |_| | | | | |>  <          |\n"
         "| \\____/ \\__,_|_| |_|_/_/\\_\\         |\n"
-        "+-------------------------------------+\n"
-        "\n"
+        "+------------------------------------+\n"
     );
-    
-    /* System information - all light grey */
-    vga_puts("  Version:    ");
-    vga_puts(BUNIX_VERSION "\n");
-    
-    vga_puts("  Build Date: ");
-    vga_puts(__DATE__ " " __TIME__ "\n");
-    
-    vga_puts("  Copyright:  20");
+
+    /* System Information */
+    vga_puts("\n  Version:      ");
+    vga_puts(BUNIX_VERSION);
+    vga_puts("\n");
+
+    vga_puts("  Build:        ");
+    vga_puts(__DATE__);
+    vga_puts(" ");
+    vga_puts(__TIME__);
+    vga_puts("\n");
+
+    vga_puts("  Copyright:    20");
     vga_putchar('0' + ((current_date.year % 100) / 10));
     vga_putchar('0' + (current_date.year % 10));
+    vga_puts("-");
+    if (current_date.month < 10) vga_putchar('0');
+    vga_putdec(current_date.month, 0);
+    vga_puts("-");
+    if (current_date.day < 10) vga_putchar('0');
+    vga_putdec(current_date.day, 0);
     vga_puts(" Bunix OS\n");
-    
-    /* Simple separator */
+
+    /* Informative Separator */
     vga_puts("\n  ---------------------------------\n\n");
-    
-    /* Help prompt */
-    vga_puts("  Type 'help' for available commands\n\n");
-    
-    /* Source info */
-    vga_puts("  github.com/0x16000/Bunix\n\n");
+
+    /* User Guidance */
+    vga_puts("  [github.com/0x16000/Bunix]       \n");
+    vga_puts("  Type 'help' for command listing  \n\n");
 }
 
+/*─────────────────────────────────────────────────────────────────────────────*
+ * MAIN KERNEL ENTRY POINT                                                     *
+ *─────────────────────────────────────────────────────────────────────────────*/
+
 /**
- * kernel_main - Main kernel entry point after boot
+ * kernel_main - Primary system initialization and control flow
  * 
- * Initializes system components and starts the shell.
+ * Orchestrates boot sequence, hardware initialization, and user interface
+ * presentation before transferring control to the shell.
  */
 int main(void) 
 {
-    /* Show boot animation */
+    /* Boot Sequence */
     boot_screen();
-    
-    /* Display system information */
-    display_banner();
-    
-    /* Initialize shell interface */
-    print_shell_prompt();
+    crude_delay(500);  /* Allow boot screen visibility */
+
+    /* System Initialization */
+    display_system_banner();
     kb_enable_input(true);
-    
-    /* Enter main shell loop */
+
+    /* User Environment */
+    print_shell_prompt();
     shell_run();
+
+    /* Unreachable Code Handling */
+    panic("Kernel shell terminated abnormally");
     
-    /* If we get here, something went wrong */
-    panic("Kernel shell terminated unexpectedly");
-    
-    return 0; /* Never reached */
+    return 0;  /* Satisfy compiler requirement */
 }
