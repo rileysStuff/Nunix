@@ -1,9 +1,9 @@
 ![Image](https://github.com/user-attachments/assets/ceaf6f84-0ba8-4df5-b7ea-014fb0951aaf)
 
-Bunix all rights reserved.
+Nunix all rights reserved.
 --------------------------
 
-Bunix is a Unix-Like Operating System Developed entirely from scratch by one person.
+Nunix is a Unix-Like Operating System Developed entirely from scratch originally as "Nunix" by @0x16000, with a spinoff "Nunix", by me!
 It focuses on performance stability and security.
 Updates may slow down sometimes due to school and my personal life.
 
@@ -22,13 +22,13 @@ Example for syscalls, keyboard drivers, etc.
 ## Building from scratch
 1. Install the required dependencies: `sudo apt-get update && sudo apt-get install qemu-system nasm mtool gcc-multilib`
 2. Build: `make`
-3. After building a `bunix.iso` file will be provided in the project's root directory
+3. After building a `nunix.iso` file will be provided in the project's root directory
 
 ## Build and Run
 1. Install the required dependencies: `sudo apt-get update && sudo apt-get install qemu-system nasm mtool gcc-multilib`
 2. Execute: `make run`
 
-# Future of Bunix
+# Future of Nunix
 This is definitely Fun to Work on and Will improve over time!
 We will have to look and see.
 
