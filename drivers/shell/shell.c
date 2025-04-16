@@ -140,9 +140,10 @@ void shell_run(void) {
 
                 
                 if (!command_found) {
-                    vga_set_color(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK);
-                    vga_puts("Command not found: ");
+                    vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+                    vga_puts("console: ");
                     vga_puts(command_name);
+                    vga_puts(": command not found");
                     vga_putchar('\n');
                     vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
                 }
