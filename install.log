@@ -1,9 +1,0 @@
-[12:49:49 2025-04-16] FETCHING Version 2.39.6
-[12:49:49 2025-04-16] CREATING /home/riley/.spicetify
-[12:49:49 2025-04-16] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.39.6/spicetify-2.39.6-linux-amd64.tar.gz
-[12:49:50 2025-04-16] EXTRACTING /home/riley/.spicetify/spicetify.tar.gz
-[12:49:51 2025-04-16] SETTING EXECUTABLE PERMISSIONS TO /home/riley/.spicetify/spicetify
-[12:49:51 2025-04-16] REMOVING /home/riley/.spicetify/spicetify.tar.gz
-[12:49:51 2025-04-16] APPENDING /home/riley/.spicetify to PATH in /home/riley/.bashrc
-[12:49:51 2025-04-16] spicetify v2.39.6 was installed successfully to /home/riley/.spicetify
-[12:49:51 2025-04-16] Run 'spicetify --help' to get started
