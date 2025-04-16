@@ -66,7 +66,7 @@ BOOT_OBJ = $(OBJ_DIR)/boot.o
 
 # Output files
 KERNEL_ELF = kernel.elf
-ISO_IMAGE = bunix.iso
+ISO_IMAGE = nunix.iso
 
 # Default target
 all: $(ISO_IMAGE)

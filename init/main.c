@@ -1,9 +1,9 @@
 /**
- * Bunix Kernel - Main Entry Point
+ * Nunix Kernel - Main Entry Point
  * 
  * Responsible for system initialization and core component coordination.
  * 
- * © 2024 Bunix OS Developers. All Rights Reserved.
+ * © 2025 Nunix OS Developers. All Rights Reserved.
  */
 
 #include "../include/boot/multiboot.h"
@@ -15,6 +15,7 @@
 #include "../include/shell/shell.h"
 #include "../include/version/version.h"
 #include "../include/video/vga.h"
+#include <stdio.h>
 
 /*─────────────────────────────────────────────────────────────────────────────*
  * MULTIBOOT HEADER (Must reside in first 8KB of kernel image)                *
@@ -74,6 +75,7 @@ static void crude_delay(uint32_t milliseconds)
  * Shows version information, build details, and copyright notice in a
  * consistent, professional layout.
  */
+
 static void display_system_banner(void) 
 {
     struct rtc_date current_date;
@@ -85,18 +87,17 @@ static void display_system_banner(void)
     vga_puts(
         "\n"
         "+------------------------------------+\n"
-        "| ______             _               |\n"
-        "| | ___ \\           (_)              |\n"
-        "| | |_/ /_   _ _ __  ___  __         |\n"
-        "| | ___ \\ | | | '_ \\| \\ \\/ /         |\n"
-        "| | |_/ / |_| | | | | |>  <          |\n"
-        "| \\____/ \\__,_|_| |_|_/_/\\_\\         |\n"
+        "|  _   _             _              |\n"
+        "| | \\ | |_   _ _ __ (_)_  __        |\n"
+        "| |  \\| | | | | '_ \\| \\ \\/ /        |\n"
+        "| |  \\  | |_| | | | | |>  <         |\n"
+        "| |_| \\_|\\__,_|_| |_|_/_/\\_\\        |\n"
         "+------------------------------------+\n"
-    );
+    );    
 
     /* System Information */
     vga_puts("\n  Version:      ");
-    vga_puts(BUNIX_VERSION);
+    vga_puts(NUNIX_VERSION);
     vga_puts("\n");
 
     vga_puts("  Build:        ");
@@ -114,14 +115,14 @@ static void display_system_banner(void)
     vga_puts("-");
     if (current_date.day < 10) vga_putchar('0');
     vga_putdec(current_date.day, 0);
-    vga_puts(" Bunix OS\n");
+    vga_puts(" Nunix OS\n");
 
     /* Informative Separator */
     vga_puts("\n  ---------------------------------\n\n");
 
     /* User Guidance */
-    vga_puts("  [github.com/0x16000/Bunix]       \n");
-    vga_puts("  Type 'help' for command listing  \n\n");
+    vga_puts("  [github.com/rileysStuff/Nunix], forked from: [github.com/0x16000/Bunix]        \n");
+    vga_puts("  Type 'help' to list all available commands  \n\n");
 }
 
 /*─────────────────────────────────────────────────────────────────────────────*
@@ -149,7 +150,7 @@ int main(void)
     shell_run();
 
     /* Unreachable Code Handling */
-    panic("Kernel shell terminated abnormally");
+    panic("PANIC! Kernel shell terminated abnormally");
     
     return 0;  /* Satisfy compiler requirement */
 }

@@ -43,7 +43,7 @@ uint32_t* vmm_alloc_page(void) {
         }
     }
     
-    panic("Out of memory: No free pages available");
+    panic("PANIC! Out of memory: No free pages available");
     return NULL;
 }
 
@@ -51,7 +51,7 @@ void vmm_free_page(uint32_t* page) {
     size_t page_idx = (size_t)page / PAGE_SIZE;
     
     if (page_idx >= total_pages) {
-        panic("Attempted to free invalid page");
+        panic("PANIC! Attempted to free invalid page");
         return;
     }
     

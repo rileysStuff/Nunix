@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define SHELL_PROMPT "root@Bunix:/# "
+#define SHELL_PROMPT "root@Nunix:/# "
 
 // Constants
 #define MAX_HISTORY_SIZE 10  // Define the size of the command history buffer

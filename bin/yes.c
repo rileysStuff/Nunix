@@ -13,7 +13,7 @@ void yes_command(const char *args) {
         vga_puts(message);
         vga_putchar('\n');
         
-        // Check for either ESC or Ctrl+C
+        // Check for ESC
         if (kb_check_escape() || (kb_ctrl_pressed() && kb_getchar() == 'c')) {
             vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
             vga_puts("\n[yes interrupted]\n");

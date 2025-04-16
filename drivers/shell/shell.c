@@ -2,6 +2,7 @@
 #include "../../include/video/vga.h"
 #include "../../include/keyboard/kb.h"
 #include "../../include/lib/string.h"
+#include "../../include/usr/user.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -20,7 +21,7 @@ void print_shell_prompt(void) {
     
     // Hostname in green (first part only, before any dots)
     vga_set_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);
-    vga_puts("Bunix");
+    vga_puts("Nunix");
     
     // Colon and path in blue
     vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);

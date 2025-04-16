@@ -17,7 +17,7 @@ int tty_command(int argc, char **argv) {
             vga_puts("  --version      Show version\n");
             return 0;
         } else if (strcmp(arg, "--version") == 0) {
-            vga_puts("tty (Bunix) " BUNIX_VERSION "\n");
+            vga_puts("tty (Nunix) " NUNIX_VERSION "\n");
             return 0;
         } else if (strcmp(arg, "-s") == 0 || strcmp(arg, "--silent") == 0) {
             silent = 1;

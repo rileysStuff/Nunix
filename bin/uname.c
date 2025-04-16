@@ -60,20 +60,20 @@ void uname_command(const char *args) {
     }
 
     if (print_all || flag_count == 0) {
-        vga_puts(BUNIX_NAME " " BUNIX_HOSTNAME " " BUNIX_VERSION " " 
-                BUNIX_BUILD_VERSION " " BUNIX_ARCH " " BUNIX_OS "\n");
+        vga_puts(NUNIX_NAME " " NUNIX_HOSTNAME " " NUNIX_VERSION " " 
+                NUNIX_BUILD_VERSION " " NUNIX_ARCH " " NUNIX_OS "\n");
     } else {
         int first = 1;
         for (int i = 0; i < flag_count; i++) {
             if (!first) vga_putchar(' ');
             first = 0;
             switch(flags[i]) {
-                case 's': vga_puts(BUNIX_NAME); break;
-                case 'n': vga_puts(BUNIX_HOSTNAME); break;
-                case 'r': vga_puts(BUNIX_VERSION); break;
-                case 'm': vga_puts(BUNIX_ARCH); break;
-                case 'v': vga_puts(BUNIX_BUILD_VERSION); break;
-                case 'o': vga_puts(BUNIX_OS); break;
+                case 's': vga_puts(NUNIX_NAME); break;
+                case 'n': vga_puts(NUNIX_HOSTNAME); break;
+                case 'r': vga_puts(NUNIX_VERSION); break;
+                case 'm': vga_puts(NUNIX_ARCH); break;
+                case 'v': vga_puts(NUNIX_BUILD_VERSION); break;
+                case 'o': vga_puts(NUNIX_OS); break;
             }
         }
         vga_putchar('\n');

@@ -1,6 +1,6 @@
 /**
  *
- * Kernel Boot Sequence - Bunix OS
+ * Kernel Boot Sequence - Nunix OS
  * 
  * Performs hardware initialization and system diagnostics
  */
@@ -36,7 +36,7 @@ static void verify_cpu_features(void) {
     cpu_cpuid(0, 0, &eax, &ebx, &ecx, &edx);
     
     if (eax == 0 && ebx == 0 && ecx == 0 && edx == 0) {
-        panic("CPUID instruction verification failed");
+        panic("PANIC! CPUID instruction verification failed");
     }
     DEBUG_SUCCESS("CPUID instruction verified");
 
@@ -53,7 +53,7 @@ static void verify_cpu_features(void) {
     );
 
     if (read_value != test_value) {
-        panic("CPU register verification failed");
+        panic("PANIC! CPU register verification failed");
     }
     DEBUG_SUCCESS("Register integrity verified");
 
@@ -67,7 +67,7 @@ static void verify_cpu_features(void) {
         const uint64_t tsc2 = cpu_rdtsc();
         
         if (tsc2 <= tsc1) {
-            panic("TSC counter verification failed");
+            panic("PANIC! TSC counter verification failed");
         }
         DEBUG_SUCCESS("TSC counter operational");
     }
@@ -100,7 +100,7 @@ void boot_screen(void) {
 
     // Peripheral initialization
     if (kb_init() != 0) {
-        panic("Keyboard controller initialization failed");
+        panic("PANIC! Keyboard controller initialization failed");
     }
     DEBUG_SUCCESS("Input subsystem initialized");
     boot_delay(BOOT_DELAY_SHORT);

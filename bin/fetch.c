@@ -77,11 +77,19 @@ void fetch_command(void) {
     vga_set_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);
     vga_puts("OS: ");
     vga_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
-    vga_puts(BUNIX_NAME);
+    vga_puts(NUNIX_NAME);
     
+    // Display Fork Version
+
     vga_move_cursor(info_x, y++);
     vga_set_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);
-    vga_puts("Kernel: ");
+    vga_puts("Forked kernel: ");
+    vga_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
+    vga_puts(NUNIX_VERSION);
+
+    vga_move_cursor(info_x, y++);
+    vga_set_color(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);
+    vga_puts("ORIGINAL Kernel: ");
     vga_set_color(VGA_COLOR_WHITE, VGA_COLOR_BLACK);
     vga_puts(BUNIX_VERSION);
     
