@@ -21,6 +21,12 @@ void uname_command(const char *args) {
     char flags[20] = {0};
     int flag_count = 0;
     int print_all = 0;
+    
+    // Default behavior when no arguments
+    if (!args || !*args) {
+        vga_puts(BUNIX_NAME "\n");
+        return;
+    }
 
     if (args) {
         char *arg = strtok((char *)args, " ");
@@ -59,10 +65,10 @@ void uname_command(const char *args) {
         if (flags[i] == 'a') { print_all = 1; break; }
     }
 
-    if (print_all || flag_count == 0) {
+    if (print_all) {
         vga_puts(BUNIX_NAME " " BUNIX_HOSTNAME " " BUNIX_VERSION " " 
                 BUNIX_BUILD_VERSION " " BUNIX_ARCH " " BUNIX_OS "\n");
-    } else {
+    } else if (flag_count > 0) {
         int first = 1;
         for (int i = 0; i < flag_count; i++) {
             if (!first) vga_putchar(' ');
