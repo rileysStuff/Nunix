@@ -6,7 +6,7 @@
 Nunix all rights reserved.
 --------------------------
 
-Nunix is a Unix-Like Operating System Developed entirely from scratch originally as "Nunix" by @0x16000, with a spinoff "Nunix", by me!
+Nunix is a Unix-Like Operating System Developed entirely from scratch originally as "Bunix" by @0x16000, with a spinoff "Nunix", by me!
 It focuses on performance stability and security.
 Updates may slow down sometimes due to school and my personal life.
 
