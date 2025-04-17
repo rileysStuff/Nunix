@@ -1,10 +1,13 @@
 ![Image](https://i.ibb.co/zW0TJMDR/Nunix-0-0-6.png)
 
-# PLEASE CHECK OUT "https://github.com/0x16000/Bunix"!
-# HE IS WAY SMARTER THAN I AM
+**PLEASE CHECK OUT "https://github.com/0x16000/Bunix"!**
+**HE IS WAY SMARTER THAN I AM**
 
 Nunix all rights reserved.
 --------------------------
+
+***Nunix Discord Server: "https://discord.gg/M6k9npPyQN"***
+*-------------------------------------------------------*
 
 Nunix is a Unix-Like Operating System Developed entirely from scratch originally as "Bunix" by @0x16000, with a spinoff "Nunix", by me!
 It focuses on performance stability and security.
