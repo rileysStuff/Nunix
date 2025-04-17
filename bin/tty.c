@@ -5,7 +5,7 @@
 
 int tty_command(int argc, char **argv) {
     int silent = 0;
-    const char *tty_name = "console0";
+    const char *tty_name = "tty0";
     
     for (int i = 1; i < argc; i++) {
         const char *arg = argv[i];
