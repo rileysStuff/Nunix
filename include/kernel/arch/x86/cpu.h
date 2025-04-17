@@ -5,12 +5,13 @@
 #include <stdbool.h>
 
 // CPU Vendor IDs
-#define CPU_VENDOR_INTEL     "GenuineIntel"
-#define CPU_VENDOR_AMD       "AuthenticAMD"
-#define CPU_VENDOR_HYPERV    "Microsoft Hv"
-#define CPU_VENDOR_VMWARE    "VMwareVMware"
-#define CPU_VENDOR_QEMU      "TCGTCGTCGTCG"
-#define CPU_VENDOR_UNKNOWN   "Unknown"
+#define CPU_VENDOR_INTEL      "Genuine-Intel"
+#define CPU_VENDOR_AMD        "Authentic-AMD"
+#define CPU_VENDOR_HYPERV     "Microsoft Hv"
+#define CPU_VENDOR_VMWARE     "VMwareVMware"
+#define CPU_VENDOR_QEMU       "TCGTCGTCGTCG"
+#define CPU_VENDOR_VIRTUALBOX "VBoxVBoxVBox"
+#define CPU_VENDOR_UNKNOWN    "Unknown"
 
 #define CPU_DEBUG_DUMP_CACHES   0x01
 #define CPU_DEBUG_DUMP_FEATURES 0x02
