@@ -19,6 +19,8 @@ extern int last_exit_status;
 
 char kb_getchar(void);  // Reads one character from input
 
+extern Command commands[];
+
 // Command function prototypes
 void print_shell_prompt(void);
 void help_command(const char *args);
@@ -45,6 +47,7 @@ void grep_command(const char *args);
 void factor_command(const char *args);
 void rand_command(const char *args);
 void tty_command(const char *args);
+void watch_command(const char *args);
 int get_last_exit_status(void);
 
 // Shell functions

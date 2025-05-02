@@ -71,6 +71,7 @@ Command commands[] = {
     {"factor",     factor_command,    "Factor numbers"},
     {"rand",       rand_command,      "Generate a random number"},
     {"tty",        tty_command,       "Show terminal device name"},
+    {"watch",      watch_command,     "Repeat a command every ... seconds"},
     {NULL, NULL, NULL} // End marker
 };
 
@@ -142,8 +143,9 @@ void shell_run(void) {
                 
                 if (!command_found) {
                     vga_set_color(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK);
-                    vga_puts("Command not found: ");
+                    vga_puts("sh: ");
                     vga_puts(command_name);
+                    vga_puts(" command not found");
                     vga_putchar('\n');
                     vga_set_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
                 }
