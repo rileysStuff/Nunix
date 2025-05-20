@@ -89,3 +89,4 @@ void uname_command(const char *args) {
         vga_putchar('\n');
     }
 }
+}
